@@ -1,0 +1,39 @@
+name: Terraform Deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - terraform/**
+
+env:
+  TF_SA: <YOUR_GCP_SA_EMAIL_HERE>
+  TF_VERSION: "1.2.9"
+  TF_IN_AUTOMATION: "True"
+
+jobs:
+  terraform_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: false
+      
+      - name: GCP Auth
+        uses: google-github-actions/auth@v1
+        with:
+          service_account: ${{ env.TF_SA }}
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+      
+      - name: Terraform Init
+        working-directory: terraform
+        run: terraform init
+      
+      - name: Terraform Apply
+        working-directory: terraform
+        run: terraform apply --auto-approve

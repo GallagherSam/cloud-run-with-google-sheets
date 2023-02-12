@@ -1,0 +1,40 @@
+name: Cloud Run Deploy
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+      - app/**
+      - Dockerfile
+
+
+jobs:
+  cloud_run_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: google-github-actions/auth@v1
+        name: "Authenticate to Google"
+        with:
+          service_account: <YOUR SERVICE ACCOUNT EMAIL>
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0.6.0'
+
+      - name: Docker Auth
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: "Build and Push"
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: image:tag
+
+      - name: "Deploy to Cloud Run"
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          service: cloud-run-for-google-sheets
+          image: image:tag
