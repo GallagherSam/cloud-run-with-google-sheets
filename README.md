@@ -10,7 +10,7 @@ Part 2: https://medium.com/@gallaghersam95/cloud-run-for-google-sheets-part-2-cb
 
 ### Terraform
 
-All of the required Terraform code is in the `terraform` directory.
+All of the required Terraform code is in the `/terraform` directory.
 
 ### Python
 
