@@ -3,7 +3,8 @@
 View the articles here:
 
 Part 1: https://medium.com/@gallaghersam95/cloud-run-for-google-sheets-part-1-b3a6a252219a
-Part 2:
+
+Part 2: https://medium.com/@gallaghersam95/cloud-run-for-google-sheets-part-2-cb4f784007f7
 
 ## Directory Structure
 
