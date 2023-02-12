@@ -18,7 +18,7 @@ jobs:
       - uses: google-github-actions/auth@v1
         name: "Authenticate to Google"
         with:
-          service_account: <YOUR SERVICE ACCOUNT EMAIL>
+          service_account: <YOUR_SERVICE_ACCOUNT_EMAIL>
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: 'Set up Cloud SDK'
